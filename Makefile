@@ -1,0 +1,2 @@
+fmt:
+	dart format ./lib/*
