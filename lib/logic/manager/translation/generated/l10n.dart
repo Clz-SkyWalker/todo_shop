@@ -60,13 +60,33 @@ class S {
     );
   }
 
-  /// `test{t1}{t2}`
-  String test(Object t1, Object t2) {
+  /// `ENTRUST`
+  String get entrust {
     return Intl.message(
-      'test$t1$t2',
-      name: 'test',
+      'ENTRUST',
+      name: 'entrust',
       desc: '',
-      args: [t1, t2],
+      args: [],
+    );
+  }
+
+  /// `SHOP`
+  String get shop {
+    return Intl.message(
+      'SHOP',
+      name: 'shop',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ME`
+  String get me {
+    return Intl.message(
+      'ME',
+      name: 'me',
+      desc: '',
+      args: [],
     );
   }
 }

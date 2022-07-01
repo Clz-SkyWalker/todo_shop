@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_shop/logic/const/app_const.dart';
-import 'package:todo_shop/ui/pages/home/home_page.dart';
+import 'package:todo_shop/ui/pages/tab/tab_scaffold.dart';
 
 class RouterManager extends RouterDelegate<List<RouteSettings>>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin {
@@ -67,10 +67,10 @@ class RouterManager extends RouterDelegate<List<RouteSettings>>
     Widget child;
     switch (routeSettings.name) {
       case AppConst.routeHome:
-        child = const HomePage();
+        child = const TabScaffold();
         break;
       default:
-        child = const HomePage();
+        child = const TabScaffold();
     }
 
     return MaterialPage(

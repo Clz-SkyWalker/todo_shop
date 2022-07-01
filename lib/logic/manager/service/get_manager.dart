@@ -4,7 +4,7 @@ import 'package:todo_shop/logic/manager/service/shard_manager.dart';
 
 final getManager = GetIt.instance;
 
-void initGetService() {
+void initGetItManager() {
   getManager.registerSingleton<RouterManager>(RouterManager());
-  getManager.registerSingletonAsync(() => ShardService().init());
+  getManager.registerSingletonAsync<ShardService>(() => ShardService().init());
 }

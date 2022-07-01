@@ -4,32 +4,33 @@ import 'package:todo_shop/logic/manager/export_manager.dart';
 import '../../const/app_const.dart';
 
 class StateAppBase {
-  int theme = 0;
-  int font = 0;
-  void test(){
+  late int theme;
+  late int font;
 
-  }
+  StateAppBase(this.theme, this.font);
 }
 
 class StateAppBaseNotifier extends StateNotifier<StateAppBase> {
   StateAppBaseNotifier(super.state);
 
+  int get getTheme => state.theme;
 
-  void init() {
-    var sp = getManager.get<ShardService>().sp;
-    state.theme = (sp.getInt(AppConst.theme)) ?? 0;
-    state.font = sp.getInt(AppConst.font) ?? 0;
+  void init() async {
+    var service =await getManager.getAsync<ShardService>();
+    var sp=service.sp;
+    state.theme = (sp.getInt(AppConst.spTheme)) ?? 0;
+    state.font = sp.getInt(AppConst.spFont) ?? 0;
   }
 
-  void updateTheme(int id) {
+  set updateTheme(int id) {
     state.theme = id;
     var sp = getManager.get<ShardService>().sp;
-    sp.setInt(AppConst.theme, state.theme);
+    sp.setInt(AppConst.spTheme, state.theme);
   }
 
-  void updateFont(int id) {
+  set updateFont(int id) {
     state.font = id;
     var sp = getManager.get<ShardService>().sp;
-    sp.setInt(AppConst.font, state.font);
+    sp.setInt(AppConst.spFont, state.font);
   }
 }

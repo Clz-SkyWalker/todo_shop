@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todo_shop/logic/const/app_const.dart';
 import 'package:todo_shop/logic/manager/theme/colors/color_manager.dart';
+import 'package:todo_shop/logic/manager/theme/colors/kind/blue_color.dart';
 import 'package:todo_shop/logic/manager/theme/colors/kind/dark_color.dart';
 import 'package:todo_shop/logic/manager/theme/colors/kind/light_color.dart';
 import 'package:todo_shop/logic/manager/theme/text/kind/dark_text.dart';
@@ -14,24 +16,46 @@ abstract class ITheme {
 
 abstract class IThemeManager {
   static ThemeData createTheme(ITheme theme) => ThemeData(
-      useMaterial3: true,
-      primaryColor: theme.colors.primaryColor,
-      textTheme: theme.textTheme.data,
-      cardColor: theme.colors.colorScheme?.onSecondary,
-      bottomAppBarColor: theme.colors.scaffoldBackgroundColor,
-      tabBarTheme: TabBarTheme(
-        indicator: const BoxDecoration(),
-        labelColor: theme.colors.appBarColor,
-        unselectedLabelColor: theme.colors.tabBarNormalColor,
-      ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-          foregroundColor: theme.colors.colors.white,
-          backgroundColor: theme.colors.colors.mediumGreyBold),
-      appBarTheme: AppBarTheme(backgroundColor: theme.colors.appBarColor),
-      scaffoldBackgroundColor: theme.colors.scaffoldBackgroundColor,
-      colorScheme: theme.colors.colorScheme,
-  fontFamily: theme.textTheme.fontFamily,
-  );
+        useMaterial3: true,
+        // primaryColor: theme.colors.primaryColor,
+        // switchTheme: SwitchThemeData(),
+        textTheme: theme.textTheme.data,
+        cardColor: theme.colors.colorScheme?.onSecondary,
+        bottomAppBarColor: theme.colors.scaffoldBackgroundColor,
+        tabBarTheme: TabBarTheme(
+          indicator: const BoxDecoration(),
+          labelColor: theme.colors.appBarColor,
+          unselectedLabelColor: theme.colors.tabBarNormalColor,
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+            foregroundColor: theme.colors.colors.white,
+            backgroundColor: theme.colors.colors.mediumGreyBold),
+        appBarTheme: AppBarTheme(backgroundColor: theme.colors.appBarColor),
+        navigationBarTheme: NavigationBarThemeData(
+            backgroundColor: theme.colors.colorScheme!.onSecondary,
+            iconTheme: MaterialStateProperty.resolveWith((states) {
+              if (states.contains(MaterialState.selected)) {
+                return IconThemeData(color: theme.colors.colorScheme!.primary);
+              }
+              return IconThemeData(color: theme.colors.colorScheme!.onSurface);
+            })),
+        scaffoldBackgroundColor: theme.colors.scaffoldBackgroundColor,
+        colorScheme: theme.colors.colorScheme,
+        fontFamily: theme.textTheme.fontFamily,
+      );
+}
+
+ITheme switchTheme(int theme) {
+  switch (theme) {
+    case AppConst.themeBlue:
+      return AppThemeBlue();
+    case AppConst.themeLight:
+      return AppThemeLight();
+    case AppConst.themeDark:
+      return AppThemeDark();
+    default:
+      return AppThemeLight();
+  }
 }
 
 class AppThemeDark extends ITheme {
@@ -56,6 +80,19 @@ class AppThemeLight extends ITheme {
 
   AppThemeLight() {
     colors = LightColor();
+    textTheme = LightText(colors.colors.darkerGrey);
+  }
+}
+
+class AppThemeBlue extends ITheme {
+  @override
+  late IColorManager colors;
+
+  @override
+  late ITextManager textTheme;
+
+  AppThemeBlue() {
+    colors = BlueColor();
     textTheme = LightText(colors.colors.darkerGrey);
   }
 }

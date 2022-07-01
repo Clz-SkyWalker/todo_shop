@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 @immutable
 class AppColors {
+  // 马尔斯绿主题
+  final Color marsThemeGreen = const Color.fromRGBO(1, 143, 144, 1);
+  final Color marsThemeGrey = const Color.fromRGBO(160, 160, 160, 1);
+
   final Color white = const Color(0xffffffff);
   final Color green = const Color(0xff7bed8d);
   final Color lightBlue = Colors.lightBlue;
