@@ -31,7 +31,7 @@ class LightColor implements IColorManager {
 
   LightColor() {
     primaryColor=colors.lightPrimary;
-    appBarColor = colors.lightBlue;
+    appBarColor = colors.bluePrimary;
     scaffoldBackgroundColor = colors.white;
     tabBarColor = appBarColor;
     tabBarNormalColor = colors.darkerGrey;

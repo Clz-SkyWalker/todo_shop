@@ -40,9 +40,10 @@ class _BottomNovBarCompState extends State<BottomNovBarComp> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (ctx, ref, child) {
-        return SizedBox(
+        return Container(
             width: double.infinity,
             height: 60.w,
+            color: Theme.of(context).colorScheme.primaryContainer,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: tabList.map((item) {
@@ -66,6 +67,7 @@ class _BarItemWidget extends StatelessWidget {
   final BottomNavyBarItem item;
   final Curve curve;
   final double iconWidth;
+  final double iconBgWidth;
   final double bottomWidth;
 
   const _BarItemWidget({
@@ -73,8 +75,9 @@ class _BarItemWidget extends StatelessWidget {
     required this.item,
     required this.index,
     this.curve = Curves.linear,
-    this.iconWidth = 40,
-    this.bottomWidth = 100,
+    this.iconBgWidth = 45,
+    this.bottomWidth = 120,
+    this.iconWidth = 30,
   }) : super(
           key: key,
         );
@@ -86,13 +89,14 @@ class _BarItemWidget extends StatelessWidget {
       return AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: curve,
-        width: index == curIndex ? bottomWidth.w : iconWidth.w,
-        height: iconWidth.w,
+        width: index == curIndex ? bottomWidth.w : iconBgWidth.w,
+        height: iconBgWidth.w,
         decoration: index == curIndex
             ? BoxDecoration(
-                color: Colors.grey.shade200, borderRadius: BorderRadius.circular(10))
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: BorderRadius.circular(10))
             : BoxDecoration(
-                color: Colors.grey.shade100,
+                color: Theme.of(context).colorScheme.onSecondary,
                 borderRadius: BorderRadius.circular(180)),
         child: Row(
             mainAxisSize: MainAxisSize.max,
@@ -100,20 +104,22 @@ class _BarItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: iconWidth.w,
-                width: iconWidth.w,
+                height: iconBgWidth.w,
+                width: iconBgWidth.w,
                 child: IconTheme(
                     data: IconThemeData(
                         size: iconWidth.w,
-                        color: index == curIndex ? Theme.of(context).colorScheme.primary: Theme.of(context).colorScheme.onSurface),
+                        color: index == curIndex
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.onPrimary),
                     child: item.icon),
               ),
               SizedBox(
-                height: iconWidth.h,
+                height: iconBgWidth.h,
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   curve: curve,
-                  width: index == curIndex ? (bottomWidth - iconWidth).w : 0,
+                  width: index == curIndex ? (bottomWidth - iconBgWidth).w : 0,
                   child: Container(
                     alignment: Alignment.centerLeft,
                     child: DefaultTextStyle.merge(

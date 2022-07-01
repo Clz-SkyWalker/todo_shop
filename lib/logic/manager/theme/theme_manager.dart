@@ -19,27 +19,27 @@ abstract class IThemeManager {
         useMaterial3: true,
         // primaryColor: theme.colors.primaryColor,
         // switchTheme: SwitchThemeData(),
+        // primarySwatch: ,
         textTheme: theme.textTheme.data,
-        cardColor: theme.colors.colorScheme?.onSecondary,
-        bottomAppBarColor: theme.colors.scaffoldBackgroundColor,
-        tabBarTheme: TabBarTheme(
-          indicator: const BoxDecoration(),
-          labelColor: theme.colors.appBarColor,
-          unselectedLabelColor: theme.colors.tabBarNormalColor,
-        ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-            foregroundColor: theme.colors.colors.white,
-            backgroundColor: theme.colors.colors.mediumGreyBold),
-        appBarTheme: AppBarTheme(backgroundColor: theme.colors.appBarColor),
-        navigationBarTheme: NavigationBarThemeData(
-            backgroundColor: theme.colors.colorScheme!.onSecondary,
-            iconTheme: MaterialStateProperty.resolveWith((states) {
-              if (states.contains(MaterialState.selected)) {
-                return IconThemeData(color: theme.colors.colorScheme!.primary);
-              }
-              return IconThemeData(color: theme.colors.colorScheme!.onSurface);
-            })),
-        scaffoldBackgroundColor: theme.colors.scaffoldBackgroundColor,
+        // cardColor: theme.colors.colorScheme?.onSecondary,
+        // bottomAppBarColor: theme.colors.scaffoldBackgroundColor,
+        // tabBarTheme: TabBarTheme(
+        //   indicator: const BoxDecoration(),
+        //   labelColor: theme.colors.appBarColor,
+        //   unselectedLabelColor: theme.colors.tabBarNormalColor,
+        // ),
+        // floatingActionButtonTheme: FloatingActionButtonThemeData(
+        //     foregroundColor: theme.colors.colors.white,
+        //     backgroundColor: theme.colors.colors.mediumGreyBold),
+        // appBarTheme: AppBarTheme(backgroundColor: theme.colors.appBarColor),
+        // navigationBarTheme: NavigationBarThemeData(
+        //     backgroundColor: theme.colors.colorScheme!.onSecondary,
+        //     iconTheme: MaterialStateProperty.resolveWith((states) {
+        //       if (states.contains(MaterialState.selected)) {
+        //         return IconThemeData(color: theme.colors.colorScheme!.primary);
+        //       }
+        //       return IconThemeData(color: theme.colors.colorScheme!.onSurface);
+        //     })),
         colorScheme: theme.colors.colorScheme,
         fontFamily: theme.textTheme.fontFamily,
       );

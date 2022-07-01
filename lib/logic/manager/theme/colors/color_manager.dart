@@ -3,12 +3,19 @@ import 'package:flutter/material.dart';
 @immutable
 class AppColors {
   // 马尔斯绿主题
+  final Color bluePrimary = Colors.lightBlue;
+  final Color blueOnPrimary=Colors.lightBlueAccent;
+  final Color bluePrimaryContainer=Colors.white;
+  final Color blueOnPrimaryContainer=Colors.white24;
+  final Color blueSecondary=Colors.grey.shade300;
+  final Color blueOnSecondary=Colors.grey.shade200;
+
+
   final Color marsThemeGreen = const Color.fromRGBO(1, 143, 144, 1);
   final Color marsThemeGrey = const Color.fromRGBO(160, 160, 160, 1);
 
   final Color white = const Color(0xffffffff);
   final Color green = const Color(0xff7bed8d);
-  final Color lightBlue = Colors.lightBlue;
   final Color mediumGrey = const Color(0xffa6bcd0);
   final Color mediumGreyBold = const Color(0xff748a9d);
   final Color lighterGrey = const Color(0xfff0f4f8);

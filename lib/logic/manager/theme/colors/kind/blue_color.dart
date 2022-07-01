@@ -30,17 +30,20 @@ class BlueColor implements IColorManager {
   final AppColors colors = AppColors();
 
   BlueColor() {
-    primaryColor=colors.lightPrimary;
-    appBarColor = colors.lightBlue;
+    primaryColor = colors.lightPrimary;
+    appBarColor = colors.bluePrimary;
     scaffoldBackgroundColor = colors.white;
     tabBarColor = appBarColor;
     tabBarNormalColor = colors.darkerGrey;
     tabBarSelectedColor = colors.green;
     colorScheme = const ColorScheme.light().copyWith(
-      primary: colors.lightBlue,
-        onPrimary: colors.lightBlue,
-        onSecondary: colors.white,
-        onSurface: colors.mediumGreyBold);
+      primary: colors.bluePrimary,
+      onPrimary: colors.bluePrimary,
+      primaryContainer: colors.bluePrimaryContainer,
+      onPrimaryContainer: colors.blueOnPrimaryContainer,
+      secondary: colors.blueSecondary,
+      onSecondary: colors.blueOnSecondary,
+    );
     brightness = Brightness.light;
   }
 }
