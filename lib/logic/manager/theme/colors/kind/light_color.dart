@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_shop/logic/manager/theme/colors/color_manager.dart';
+import '../color_manager.dart';
 
 class LightColor implements IColorManager {
   @override

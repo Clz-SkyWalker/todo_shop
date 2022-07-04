@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todo_shop/logic/manager/export_manager.dart';
+import 'logic/manager/export_manager.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (ctx, ref, child) {
-        var appState = ref.read(stateAppBaseProvider.notifier);
+        final appState = ref.read(stateAppBaseProvider.notifier);
         appState.init();
         return ScreenUtilInit(
           designSize: const Size(360, 690),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_shop/logic/const/app_const.dart';
+import '../../const/app_const.dart';
 
 class RouterInfoParser extends RouteInformationParser<List<RouteSettings>> {
   const RouterInfoParser() : super();
@@ -35,10 +35,10 @@ class RouterInfoParser extends RouteInformationParser<List<RouteSettings>> {
   // 获取 url 参数
   String _restoreArguments(RouteSettings routeSettings) {
     if (routeSettings.arguments == null) return '';
-    var args = routeSettings.arguments as Map;
-    String argStr = "?";
+    final args = routeSettings.arguments as Map;
+    var argStr = '?';
     args.forEach((key, value) {
-      argStr += "$key=$value&";
+      argStr += '$key=$value&';
     });
     return argStr;
   }

@@ -1,10 +1,10 @@
 class AppConst {
   // route
-  static const String routeHome = "/home";
+  static const String routeHome = '/home';
 
   // sp key
-  static const String spTheme = "theme";
-  static const String spFont = "font";
+  static const String spTheme = 'theme';
+  static const String spFont = 'font';
 
   // theme
   static const int themeBlue = 0;

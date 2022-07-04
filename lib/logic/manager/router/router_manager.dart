@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_shop/logic/const/app_const.dart';
-import 'package:todo_shop/ui/pages/tab/tab_scaffold.dart';
+import '../../const/app_const.dart';
+import '../../../ui/pages/tab/tab_scaffold.dart';
 
 class RouterManager extends RouterDelegate<List<RouteSettings>>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin {
@@ -49,7 +49,7 @@ class RouterManager extends RouterDelegate<List<RouteSettings>>
     return _pages.length > 1;
   }
 
-  bool _onPopPage(Route route, dynamic result) {
+  bool _onPopPage(Route route, result) {
     if (!route.didPop(result)) return false;
     if (canPop()) {
       _pages.removeLast();
@@ -58,7 +58,7 @@ class RouterManager extends RouterDelegate<List<RouteSettings>>
     return false;
   }
 
-  void push({required String name, dynamic arguments}) {
+  void push({required String name, arguments}) {
     _pages.add(_createPage(RouteSettings(name: name, arguments: arguments)));
     notifyListeners();
   }

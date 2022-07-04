@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_shop/ui/pages/home/home_page.dart';
+import '../home/home_page.dart';
 
 import '../tab/bottom_nov_bar_comp.dart';
 

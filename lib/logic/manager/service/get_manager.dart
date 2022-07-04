@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:todo_shop/logic/manager/router/router_manager.dart';
-import 'package:todo_shop/logic/manager/service/shard_manager.dart';
+import '../router/router_manager.dart';
+import 'shard_manager.dart';
 
 final getManager = GetIt.instance;
 

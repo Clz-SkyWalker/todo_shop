@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:todo_shop/logic/const/app_const.dart';
-import 'package:todo_shop/logic/manager/theme/colors/color_manager.dart';
-import 'package:todo_shop/logic/manager/theme/colors/kind/blue_color.dart';
-import 'package:todo_shop/logic/manager/theme/colors/kind/dark_color.dart';
-import 'package:todo_shop/logic/manager/theme/colors/kind/light_color.dart';
-import 'package:todo_shop/logic/manager/theme/text/kind/dark_text.dart';
-import 'package:todo_shop/logic/manager/theme/text/kind/light_text.dart';
-import 'package:todo_shop/logic/manager/theme/text/text_manager.dart';
+import '../../const/app_const.dart';
+import 'colors/color_manager.dart';
+import 'colors/kind/blue_color.dart';
+import 'colors/kind/dark_color.dart';
+import 'colors/kind/light_color.dart';
+import 'text/kind/dark_text.dart';
+import 'text/kind/light_text.dart';
+import 'text/text_manager.dart';
 
 abstract class ITheme {
   ITextManager get textTheme;
@@ -17,29 +17,7 @@ abstract class ITheme {
 abstract class IThemeManager {
   static ThemeData createTheme(ITheme theme) => ThemeData(
         useMaterial3: true,
-        // primaryColor: theme.colors.primaryColor,
-        // switchTheme: SwitchThemeData(),
-        // primarySwatch: ,
         textTheme: theme.textTheme.data,
-        // cardColor: theme.colors.colorScheme?.onSecondary,
-        // bottomAppBarColor: theme.colors.scaffoldBackgroundColor,
-        // tabBarTheme: TabBarTheme(
-        //   indicator: const BoxDecoration(),
-        //   labelColor: theme.colors.appBarColor,
-        //   unselectedLabelColor: theme.colors.tabBarNormalColor,
-        // ),
-        // floatingActionButtonTheme: FloatingActionButtonThemeData(
-        //     foregroundColor: theme.colors.colors.white,
-        //     backgroundColor: theme.colors.colors.mediumGreyBold),
-        // appBarTheme: AppBarTheme(backgroundColor: theme.colors.appBarColor),
-        // navigationBarTheme: NavigationBarThemeData(
-        //     backgroundColor: theme.colors.colorScheme!.onSecondary,
-        //     iconTheme: MaterialStateProperty.resolveWith((states) {
-        //       if (states.contains(MaterialState.selected)) {
-        //         return IconThemeData(color: theme.colors.colorScheme!.primary);
-        //       }
-        //       return IconThemeData(color: theme.colors.colorScheme!.onSurface);
-        //     })),
         colorScheme: theme.colors.colorScheme,
         fontFamily: theme.textTheme.fontFamily,
       );

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todo_shop/logic/manager/export_normal_manager.dart';
+import '../../../logic/manager/export_normal_manager.dart';
 
+// 底部导航栏
 class BottomNovBarComp extends StatefulWidget {
   const BottomNovBarComp({Key? key}) : super(key: key);
 
@@ -11,30 +12,13 @@ class BottomNovBarComp extends StatefulWidget {
 }
 
 class _BottomNovBarCompState extends State<BottomNovBarComp> {
-  final iconsMap = {
-    Icons.shopping_bag_rounded: S.current.entrust,
-    Icons.shop: S.current.shop,
-    Icons.people: S.current.me
-  };
+  final tabList = <BottomBarItemWidget>[];
 
-  final tabList = <_BarItemWidget>[
-    _BarItemWidget(
-      item: BottomNavyBarItem(
-          icon: const Icon(Icons.shopping_bag_rounded),
-          title: Text(S.current.entrust)),
-      index: 0,
-    ),
-    _BarItemWidget(
-      item: BottomNavyBarItem(
-          icon: const Icon(Icons.shop), title: Text(S.current.shop)),
-      index: 1,
-    ),
-    _BarItemWidget(
-      item: BottomNavyBarItem(
-          icon: const Icon(Icons.people), title: Text(S.current.me)),
-      index: 2,
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    tabList.addAll(getBottomBar());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +27,10 @@ class _BottomNovBarCompState extends State<BottomNovBarComp> {
         return Container(
             width: double.infinity,
             height: 60.w,
+            padding: EdgeInsets.symmetric(horizontal: 30.w),
             color: Theme.of(context).colorScheme.primaryContainer,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: tabList.map((item) {
                 return GestureDetector(
                   onTap: () {
@@ -62,7 +47,7 @@ class _BottomNovBarCompState extends State<BottomNovBarComp> {
   }
 }
 
-class _BarItemWidget extends StatelessWidget {
+class BottomBarItemWidget extends StatelessWidget {
   final int index;
   final BottomNavyBarItem item;
   final Curve curve;
@@ -70,14 +55,14 @@ class _BarItemWidget extends StatelessWidget {
   final double iconBgWidth;
   final double bottomWidth;
 
-  const _BarItemWidget({
+  const BottomBarItemWidget({
     Key? key,
     required this.item,
     required this.index,
-    this.curve = Curves.linear,
-    this.iconBgWidth = 45,
-    this.bottomWidth = 120,
-    this.iconWidth = 30,
+    required this.curve,
+    required this.iconBgWidth,
+    required this.bottomWidth,
+    required this.iconWidth,
   }) : super(
           key: key,
         );
@@ -85,7 +70,7 @@ class _BarItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (ctx, ref, child) {
-      int curIndex = ref.watch(stateTabProvider);
+      final curIndex = ref.watch(stateTabProvider);
       return AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: curve,
@@ -146,6 +131,43 @@ class BottomNavyBarItem {
     required this.title,
   });
 
-  final Widget icon;
-  final Widget title;
+  Widget icon;
+  Widget title;
+}
+
+List<BottomBarItemWidget> getBottomBar() {
+  final tabList = <BottomBarItemWidget>[];
+  const curve = Curves.linear;
+  const iconBgWidth = 45.0;
+  const bottomWidth = 120.0;
+  const iconWidth = 30.0;
+  tabList.add(BottomBarItemWidget(
+      item: BottomNavyBarItem(
+          icon: const Icon(Icons.shopping_bag_rounded),
+          title: Text(S.current.entrust)),
+      index: 0,
+      curve: curve,
+      iconBgWidth: iconBgWidth,
+      bottomWidth: bottomWidth,
+      iconWidth: iconWidth));
+
+  tabList.add(BottomBarItemWidget(
+      item: BottomNavyBarItem(
+          icon: const Icon(Icons.shop), title: Text(S.current.shop)),
+      index: 1,
+      curve: curve,
+      iconBgWidth: iconBgWidth,
+      bottomWidth: bottomWidth,
+      iconWidth: iconWidth));
+
+  tabList.add(BottomBarItemWidget(
+      item: BottomNavyBarItem(
+          icon: const Icon(Icons.people), title: Text(S.current.me)),
+      index: 2,
+      curve: curve,
+      iconBgWidth: iconBgWidth,
+      bottomWidth: bottomWidth,
+      iconWidth: iconWidth));
+
+  return tabList;
 }
