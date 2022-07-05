@@ -47,10 +47,12 @@ class _BottomNovBarCompState extends State<BottomNovBarComp> {
   }
 }
 
+// 单个bottom bar 样式
 class BottomBarItemWidget extends StatelessWidget {
   final int index;
   final BottomNavyBarItem item;
   final Curve curve;
+  final Duration duration;
   final double iconWidth;
   final double iconBgWidth;
   final double bottomWidth;
@@ -60,6 +62,7 @@ class BottomBarItemWidget extends StatelessWidget {
     required this.item,
     required this.index,
     required this.curve,
+    required this.duration,
     required this.iconBgWidth,
     required this.bottomWidth,
     required this.iconWidth,
@@ -72,7 +75,7 @@ class BottomBarItemWidget extends StatelessWidget {
     return Consumer(builder: (ctx, ref, child) {
       final curIndex = ref.watch(stateTabProvider);
       return AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
+        duration: duration,
         curve: curve,
         width: index == curIndex ? bottomWidth.w : iconBgWidth.w,
         height: iconBgWidth.w,
@@ -88,40 +91,49 @@ class BottomBarItemWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: iconBgWidth.w,
-                width: iconBgWidth.w,
-                child: IconTheme(
-                    data: IconThemeData(
-                        size: iconWidth.w,
-                        color: index == curIndex
-                            ? Theme.of(context).colorScheme.primary
-                            : Theme.of(context).colorScheme.onPrimary),
-                    child: item.icon),
-              ),
-              SizedBox(
-                height: iconBgWidth.h,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  curve: curve,
-                  width: index == curIndex ? (bottomWidth - iconBgWidth).w : 0,
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    child: DefaultTextStyle.merge(
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 1,
-                        // textAlign: ,
-                        child: item.title),
-                  ),
-                ),
-              ),
-              // SizedBox(width: 40.w,),
+              iconWidget(context, curIndex),
+              textWidget(context, curIndex),
             ]),
       );
     });
+  }
+
+  // 右边图标
+  Widget iconWidget(BuildContext context, int curIndex) {
+    return SizedBox(
+      height: iconBgWidth.w,
+      width: iconBgWidth.w,
+      child: IconTheme(
+          data: IconThemeData(
+              size: iconWidth.w,
+              color: index == curIndex
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.onPrimary),
+          child: item.icon),
+    );
+  }
+
+  // 文字图标
+  Widget textWidget(BuildContext context, int curIndex) {
+    return SizedBox(
+      height: iconBgWidth.h,
+      child: AnimatedContainer(
+        duration: duration,
+        curve: curve,
+        width: index == curIndex ? (bottomWidth - iconBgWidth).w : 0,
+        child: Container(
+          alignment: Alignment.centerLeft,
+          child: DefaultTextStyle.merge(
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold,
+              ),
+              maxLines: 1,
+              // textAlign: ,
+              child: item.title),
+        ),
+      ),
+    );
   }
 }
 
@@ -135,18 +147,21 @@ class BottomNavyBarItem {
   Widget title;
 }
 
+// 获取bottom bar 数组
 List<BottomBarItemWidget> getBottomBar() {
   final tabList = <BottomBarItemWidget>[];
   const curve = Curves.linear;
   const iconBgWidth = 45.0;
   const bottomWidth = 120.0;
   const iconWidth = 30.0;
+  const duration = Duration(milliseconds: 300);
   tabList.add(BottomBarItemWidget(
       item: BottomNavyBarItem(
           icon: const Icon(Icons.shopping_bag_rounded),
           title: Text(S.current.entrust)),
       index: 0,
       curve: curve,
+      duration: duration,
       iconBgWidth: iconBgWidth,
       bottomWidth: bottomWidth,
       iconWidth: iconWidth));
@@ -156,6 +171,7 @@ List<BottomBarItemWidget> getBottomBar() {
           icon: const Icon(Icons.shop), title: Text(S.current.shop)),
       index: 1,
       curve: curve,
+      duration: duration,
       iconBgWidth: iconBgWidth,
       bottomWidth: bottomWidth,
       iconWidth: iconWidth));
@@ -165,6 +181,7 @@ List<BottomBarItemWidget> getBottomBar() {
           icon: const Icon(Icons.people), title: Text(S.current.me)),
       index: 2,
       curve: curve,
+      duration: duration,
       iconBgWidth: iconBgWidth,
       bottomWidth: bottomWidth,
       iconWidth: iconWidth));

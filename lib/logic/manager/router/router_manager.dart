@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../ui/pages/scaffold/tab_scaffold.dart';
 import '../../const/app_const.dart';
-import '../../../ui/pages/tab/tab_scaffold.dart';
 
 class RouterManager extends RouterDelegate<List<RouteSettings>>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin {
