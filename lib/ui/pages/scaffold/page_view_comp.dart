@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../logic/manager/export_normal_manager.dart';
 import '../day_view/day_view_page.dart';
 import '../home/home_page.dart';
 import '../me/me_page.dart';
@@ -14,24 +16,31 @@ class PageViewComp extends StatefulWidget {
 
 class _PageViewCompState extends State<PageViewComp> {
   final pageList = <Widget>[
-    HomePage(),
-    DayViewPage(),
-    StatisticalPage(),
-    MePage()
+    const HomePage(),
+    const DayViewPage(),
+    const StatisticalPage(),
+    const MePage()
   ];
-  // final PageController pageController;
 
   @override
   void initState() {
     super.initState();
-    // pageController=PageController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      // controller: ,
-      children:pageList,
-    );
+    return Consumer(builder: (ctx, ref, child) {
+      final pageController =
+          ref.watch(stateTabProvider.select((value) => value.pageController));
+      return PageView(
+        controller: pageController,
+        children: pageList,
+      );
+    });
   }
 }

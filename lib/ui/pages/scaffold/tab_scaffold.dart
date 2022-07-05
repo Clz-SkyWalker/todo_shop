@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'bottom_nov_bar_comp.dart';
+import 'page_view_comp.dart';
 
 class TabScaffold extends StatefulWidget {
   const TabScaffold({Key? key}) : super(key: key);
@@ -14,10 +15,10 @@ class _TabScaffoldState extends State<TabScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('专注'),
+        title: const Text('专注'),
       ),
       bottomNavigationBar: const BottomNovBarComp(),
-      body: PageView(),
+      body: const PageViewComp(),
     );
   }
 }

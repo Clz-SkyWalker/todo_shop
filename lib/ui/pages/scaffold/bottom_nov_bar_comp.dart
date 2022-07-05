@@ -34,9 +34,7 @@ class _BottomNovBarCompState extends State<BottomNovBarComp> {
               children: tabList.map((item) {
                 return GestureDetector(
                   onTap: () {
-                    ref
-                        .read(stateTabProvider.notifier)
-                        .update((state) => item.index);
+                    ref.read(stateTabProvider.notifier).switchPage(item.index);
                   },
                   child: item,
                 );
@@ -50,7 +48,7 @@ class _BottomNovBarCompState extends State<BottomNovBarComp> {
 // 单个bottom bar 样式
 class BottomBarItemWidget extends StatelessWidget {
   final int index;
-  final BottomNavyBarItem item;
+  final BottomBarInfoItem item;
   final Curve curve;
   final Duration duration;
   final double iconWidth;
@@ -73,7 +71,8 @@ class BottomBarItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (ctx, ref, child) {
-      final curIndex = ref.watch(stateTabProvider);
+      final curIndex =
+          ref.watch(stateTabProvider.select((value) => value.index));
       return AnimatedContainer(
         duration: duration,
         curve: curve,
@@ -137,8 +136,9 @@ class BottomBarItemWidget extends StatelessWidget {
   }
 }
 
-class BottomNavyBarItem {
-  BottomNavyBarItem({
+// bottom bar info
+class BottomBarInfoItem {
+  BottomBarInfoItem({
     required this.icon,
     required this.title,
   });
@@ -151,12 +151,12 @@ class BottomNavyBarItem {
 List<BottomBarItemWidget> getBottomBar() {
   final tabList = <BottomBarItemWidget>[];
   const curve = Curves.linear;
-  const iconBgWidth = 45.0;
-  const bottomWidth = 120.0;
-  const iconWidth = 30.0;
+  const iconBgWidth = 40.0;
+  const bottomWidth = 100.0;
+  const iconWidth = 25.0;
   const duration = Duration(milliseconds: 300);
   tabList.add(BottomBarItemWidget(
-      item: BottomNavyBarItem(
+      item: BottomBarInfoItem(
           icon: const Icon(Icons.shopping_bag_rounded),
           title: Text(S.current.entrust)),
       index: 0,
@@ -167,7 +167,7 @@ List<BottomBarItemWidget> getBottomBar() {
       iconWidth: iconWidth));
 
   tabList.add(BottomBarItemWidget(
-      item: BottomNavyBarItem(
+      item: BottomBarInfoItem(
           icon: const Icon(Icons.shop), title: Text(S.current.shop)),
       index: 1,
       curve: curve,
@@ -177,9 +177,19 @@ List<BottomBarItemWidget> getBottomBar() {
       iconWidth: iconWidth));
 
   tabList.add(BottomBarItemWidget(
-      item: BottomNavyBarItem(
+      item: BottomBarInfoItem(
           icon: const Icon(Icons.people), title: Text(S.current.me)),
       index: 2,
+      curve: curve,
+      duration: duration,
+      iconBgWidth: iconBgWidth,
+      bottomWidth: bottomWidth,
+      iconWidth: iconWidth));
+
+  tabList.add(BottomBarItemWidget(
+      item: BottomBarInfoItem(
+          icon: const Icon(Icons.telegram), title: Text(S.current.me)),
+      index: 3,
       curve: curve,
       duration: duration,
       iconBgWidth: iconBgWidth,

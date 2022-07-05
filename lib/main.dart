@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (ctx, ref, child) {
-        final appState = ref.read(stateAppBaseProvider.notifier);
+        final appState = ref.watch(stateAppBaseProvider.notifier);
         appState.init();
         return ScreenUtilInit(
           designSize: const Size(360, 690),
