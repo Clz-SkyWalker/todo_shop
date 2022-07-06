@@ -89,6 +89,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Mon`
+  String get monday {
+    return Intl.message(
+      'Mon',
+      name: 'monday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tue`
+  String get tuesday {
+    return Intl.message(
+      'Tue',
+      name: 'tuesday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wed`
+  String get wednesday {
+    return Intl.message(
+      'Wed',
+      name: 'wednesday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thu`
+  String get thursday {
+    return Intl.message(
+      'Thu',
+      name: 'thursday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fri`
+  String get friday {
+    return Intl.message(
+      'Fri',
+      name: 'friday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sat`
+  String get saturday {
+    return Intl.message(
+      'Sat',
+      name: 'saturday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `sun`
+  String get sunday {
+    return Intl.message(
+      'sun',
+      name: 'sunday',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: const [
-              Locale('en', 'US'), // English, no country code
-              // Locale('zh', 'CN'), // Spanish, no country code
+              // Locale('en', 'US'), // English, no country code
+              Locale('zh', 'CN'), // Spanish, no country code
             ],
             theme: IThemeManager.createTheme(switchTheme(appState.getTheme)),
             debugShowCheckedModeBanner: false,

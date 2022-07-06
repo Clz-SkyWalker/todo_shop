@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../component/export_comp.dart';
 import 'bottom_nov_bar_comp.dart';
 import 'page_view_comp.dart';
 
@@ -13,12 +14,12 @@ class TabScaffold extends StatefulWidget {
 class _TabScaffoldState extends State<TabScaffold> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('专注'),
+    return const SafeArea(
+      child: Scaffold(
+        bottomNavigationBar: BottomNovBarComp(),
+        drawer: DrawComp(),
+        body: PageViewComp(),
       ),
-      bottomNavigationBar: const BottomNovBarComp(),
-      body: const PageViewComp(),
     );
   }
 }

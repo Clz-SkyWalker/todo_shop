@@ -24,7 +24,14 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "appName": MessageLookupByLibrary.simpleMessage("项目名称"),
         "entrust": MessageLookupByLibrary.simpleMessage("委托"),
+        "friday": MessageLookupByLibrary.simpleMessage("周五"),
         "me": MessageLookupByLibrary.simpleMessage("我的"),
-        "shop": MessageLookupByLibrary.simpleMessage("商店")
+        "monday": MessageLookupByLibrary.simpleMessage("周一"),
+        "saturday": MessageLookupByLibrary.simpleMessage("周六"),
+        "shop": MessageLookupByLibrary.simpleMessage("商店"),
+        "sunday": MessageLookupByLibrary.simpleMessage("周日"),
+        "thursday": MessageLookupByLibrary.simpleMessage("周四"),
+        "tuesday": MessageLookupByLibrary.simpleMessage("周二"),
+        "wednesday": MessageLookupByLibrary.simpleMessage("周三")
       };
 }

@@ -2,5 +2,12 @@
   "appName":"project name",
   "entrust":"ENTRUST",
   "shop":"SHOP",
-  "me":"ME"
+  "me":"ME",
+  "monday":"Mon",
+  "tuesday":"Tue",
+  "wednesday":"Wed",
+  "thursday":"Thu",
+  "friday":"Fri",
+  "saturday":"Sat",
+  "sunday":"sun"
 }
