@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../component/export_comp.dart';
 import 'bottom_nov_bar_comp.dart';
 import 'page_view_comp.dart';
 
@@ -17,7 +16,7 @@ class _TabScaffoldState extends State<TabScaffold> {
     return const SafeArea(
       child: Scaffold(
         bottomNavigationBar: BottomNovBarComp(),
-        drawer: DrawComp(),
+        // drawer: DrawComp(),
         body: PageViewComp(),
       ),
     );

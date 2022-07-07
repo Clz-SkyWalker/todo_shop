@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'tab_bar_date_comp.dart';
 import 'tab_bar_head_comp.dart';
@@ -24,15 +23,6 @@ class _TabBarCompState extends State<TabBarComp> {
         children: [
           TabBarHeadComp(height: widget.headHeight),
           const TabBarDateComp(),
-          Container(
-            height: 20.w,
-            alignment: Alignment.center,
-            child: Icon(
-              Icons.home_max,
-              size: 13.sp,
-              color: Theme.of(context).colorScheme.primaryContainer,
-            ),
-          )
         ],
       ),
     );

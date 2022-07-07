@@ -18,5 +18,7 @@ final stateTabProvider =
 // home page
 final stateHomeProvider = StateNotifierProvider<StateHomeNotifier, StateHome>(
     (ref) => StateHomeNotifier(StateHome(
-        date:
-            UtilTime.formatDateTime(FormatDateTime.yyyyMmDd, DateTime.now()))));
+        selectDate:
+            UtilTime.formatDateTime(FormatDateTime.yyyyMmDd, DateTime.now()),
+        type: HomeViewType.month,
+        controller: null)));

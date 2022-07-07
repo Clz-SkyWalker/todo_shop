@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../component/export_comp.dart';
+
+import 'comp/tab_bar_comp/tab_bar_comp.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
