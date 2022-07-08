@@ -5,6 +5,7 @@ import '../manager/export_normal_manager.dart';
 /// 时间格式化枚举
 enum FormatDateTime {
   yyyyMmDd,
+  yyyyMm,
 }
 
 class UtilTime {
@@ -42,7 +43,7 @@ class UtilTime {
 
     // 添加当月全部天数
     result.add(firstDay);
-    for (var i = 0; i < monthTotalDay-1; i++) {
+    for (var i = 0; i < monthTotalDay - 1; i++) {
       firstDay = firstDay.add(const Duration(days: 1));
       result.add(firstDay);
     }
@@ -64,6 +65,8 @@ class UtilTime {
     switch (format) {
       case FormatDateTime.yyyyMmDd:
         return DateTime(date.year, date.month, date.day);
+      case FormatDateTime.yyyyMm:
+        return DateTime(date.year,date.month,1);
     }
   }
 
@@ -87,5 +90,23 @@ class UtilTime {
       default:
         return '';
     }
+  }
+
+  /// 获取 dateTime 该月份左右几个月
+  static List<DateTime> getNextAndPreDate(
+      DateTime dateTime, int pre, int next) {
+    final result = <DateTime>[];
+    dateTime = formatDateTime(FormatDateTime.yyyyMmDd, dateTime);
+    result.add(dateTime);
+    for (var i = 1; i <= pre; i++) {
+      final preDt = DateUtils.addMonthsToMonthDate(dateTime, -i);
+      result.add(preDt);
+    }
+
+    for (var i = 1; i <= next; i++) {
+      final preDt = DateUtils.addMonthsToMonthDate(dateTime, i);
+      result.add(preDt);
+    }
+    return result;
   }
 }

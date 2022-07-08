@@ -39,6 +39,7 @@ class _PageViewCompState extends State<PageViewComp> {
           ref.watch(stateTabProvider.select((value) => value.pageController));
       return PageView(
         controller: pageController,
+        physics: const NeverScrollableScrollPhysics(),
         children: pageList,
       );
     });

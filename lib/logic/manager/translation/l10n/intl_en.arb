@@ -9,5 +9,8 @@
   "thursday":"Thu",
   "friday":"Fri",
   "saturday":"Sat",
-  "sunday":"sun"
+  "sunday":"sun",
+  "week":"week",
+  "month":"month",
+  "backlog":"to-do"
 }

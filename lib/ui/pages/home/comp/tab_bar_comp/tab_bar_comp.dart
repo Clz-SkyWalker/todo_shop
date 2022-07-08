@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'tab_bar_date_comp.dart';
 import 'tab_bar_head_comp.dart';
@@ -17,7 +18,20 @@ class _TabBarCompState extends State<TabBarComp> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10.r),
+            bottomRight: Radius.circular(10.r)),
+        boxShadow: const [
+          BoxShadow(
+              color: Colors.black12,
+              offset: Offset(0.0, 15.0), //阴影xy轴偏移量
+              blurRadius: 15.0, //阴影模糊程度
+              spreadRadius: 1.0) //阴影扩散程度
+        ],
+      ),
+      clipBehavior: Clip.hardEdge,
       width: double.infinity,
       child: Column(
         children: [

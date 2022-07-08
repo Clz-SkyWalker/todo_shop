@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../../../../logic/manager/export_normal_manager.dart';
 
 class TabBarHeadComp extends StatelessWidget {
   const TabBarHeadComp({Key? key, required this.height}) : super(key: key);
@@ -30,33 +33,46 @@ class TabBarHeadComp extends StatelessWidget {
     );
   }
 
-
   // 头部抽屉按钮
   Widget drawHeadWidget(BuildContext context, double height, Color color,
       double iconSize, TextStyle textStyle) {
-    return GestureDetector(
-      onTap: () {
-        Scaffold.of(context).openDrawer();
+    return Consumer(
+      builder: (context, ref, child) {
+        final viewType =
+            ref.watch(stateHomeProvider.select((value) => value.viewType));
+        return GestureDetector(
+          onTap: () {
+            Scaffold.of(context).openDrawer();
+          },
+          child: Container(
+            height: height.w,
+            alignment: Alignment.centerLeft,
+            child: Row(
+              children: [
+                Icon(
+                  Icons.menu,
+                  size: iconSize,
+                  color: color,
+                ),
+                headWidget(viewType, textStyle),
+              ],
+            ),
+          ),
+        );
       },
-      child: Container(
-        height: height.w,
-        width: 60.w,
-        alignment: Alignment.centerLeft,
-        child: Row(
-          children: [
-            Icon(
-              Icons.menu,
-              size: iconSize,
-              color: color,
-            ),
-            Text(
-              '待办',
-              style: textStyle,
-            ),
-          ],
-        ),
-      ),
     );
+  }
+
+  Widget headWidget(HomeViewType viewType, TextStyle textStyle) {
+    switch (viewType) {
+      case HomeViewType.month:
+        return _HeadDateWidget(textStyle: textStyle);
+      default:
+        return Text(
+          S.current.backlog,
+          style: textStyle,
+        );
+    }
   }
 
   // 头部-尾部按钮
@@ -75,3 +91,41 @@ class TabBarHeadComp extends StatelessWidget {
   }
 }
 
+/// 头部年月展示
+class _HeadDateWidget extends StatelessWidget {
+  const _HeadDateWidget({Key? key, required this.textStyle}) : super(key: key);
+  final TextStyle textStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(builder: (context, ref, child) {
+      final curYM = ref.watch(stateHomeProvider.select((value) => value.curYM));
+      return InkWell(
+        onTap: () {
+
+        },
+        child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 6.w),
+            decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                border: Border.all(
+                    color: Theme.of(context).colorScheme.primaryContainer),
+                borderRadius: BorderRadius.circular(30)),
+            child: Row(
+              children: [
+                Text(
+                  '${curYM.year}.${curYM.month}',
+                  style: textStyle.copyWith(
+                      fontSize: (textStyle.fontSize! * 2 / 3)),
+                ),
+                Icon(
+                  Icons.align_vertical_top_outlined,
+                  color: textStyle.color,
+                  size: (textStyle.fontSize! * 2 / 3),
+                )
+              ],
+            )),
+      );
+    });
+  }
+}

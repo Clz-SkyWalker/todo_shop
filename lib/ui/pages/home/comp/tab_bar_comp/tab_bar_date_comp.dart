@@ -6,6 +6,7 @@ import '../../../../../logic/utils/export_utils.dart';
 import '../../../../../logic/manager/export_normal_manager.dart';
 import 'tab_bar_date_month_comp.dart';
 import 'tab_bar_date_week_comp.dart';
+import 'tab_bar_filter_comp.dart';
 
 class TabBarDateComp extends StatefulWidget {
   const TabBarDateComp({Key? key}) : super(key: key);
@@ -15,28 +16,52 @@ class TabBarDateComp extends StatefulWidget {
 }
 
 class _TabBarDateCompState extends State<TabBarDateComp> {
+  // 未选中的文字颜色
+  late final Color primaryContainerColor;
+  late final Color primaryColor;
+
+  // 未选中的文字样式
+  late final TextStyle unSelectTextStyle;
+
+  // 选中的文字样式
+  late final TextStyle selectTextStyle;
+  late final pdWidth = 5.0;
+  late final TabDateModel dateModel;
+
   @override
-  Widget build(BuildContext context) {
-    final primaryContainerColor =
-        Theme.of(context).colorScheme.primaryContainer;
-    final primaryColor = Theme.of(context).colorScheme.primary;
-    final unSelectTextStyle = Theme.of(context)
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    primaryContainerColor = Theme.of(context).colorScheme.primaryContainer;
+    primaryColor = Theme.of(context).colorScheme.primary;
+    unSelectTextStyle = Theme.of(context)
         .textTheme
         .bodyText2!
         .copyWith(color: primaryContainerColor);
-    final selectTextStyle =
+    selectTextStyle =
         Theme.of(context).textTheme.bodyText2!.copyWith(color: primaryColor);
-    const pdWidth = 5.0;
+    dateModel = TabDateModel.init();
+    dateModel
+      ..pdWidth = pdWidth
+      ..unSelectTextStyle = unSelectTextStyle
+      ..selectTextStyle = selectTextStyle;
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final stateHome = ref.watch(stateHomeProvider);
+        final viewType =
+            ref.watch(stateHomeProvider.select((value) => value.viewType));
         return Column(
           children: [
-            headWidget(pdWidth, unSelectTextStyle),
-            dateView(
-                ref, pdWidth, stateHome, unSelectTextStyle, selectTextStyle),
-            // loadBtnWidget(ref),
+            TabBarFilterComp(model: dateModel),
+            _BarBarDateHeadWidget(
+              textStyle: unSelectTextStyle,
+              pdWidth: pdWidth,
+            ),
+            SizedBox(height: 5.w,),
+            dateView(viewType),
+            SizedBox(height: 5.w,)
           ],
         );
       },
@@ -44,14 +69,10 @@ class _TabBarDateCompState extends State<TabBarDateComp> {
   }
 
   // date 视图选择
-  Widget dateView(WidgetRef ref, double pdWidth, StateHome stateHome,
-      TextStyle unSelectTextStyle, TextStyle selectTextStyle) {
-    final dateModel = TabDateModel.init();
-    dateModel
-      ..pdWidth = pdWidth
-      ..unSelectTextStyle = unSelectTextStyle
-      ..selectTextStyle = selectTextStyle;
-    switch (stateHome.type) {
+  Widget dateView(
+    HomeViewType viewType,
+  ) {
+    switch (viewType) {
       case HomeViewType.month:
         return TabBarDateMonthComp(
           dateModel: dateModel,
@@ -62,9 +83,18 @@ class _TabBarDateCompState extends State<TabBarDateComp> {
         );
     }
   }
+}
 
-  // 显示周几
-  Widget headWidget(double pdWidth, TextStyle textStyle) {
+/// 显示周期
+class _BarBarDateHeadWidget extends StatelessWidget {
+  const _BarBarDateHeadWidget(
+      {Key? key, required this.pdWidth, required this.textStyle})
+      : super(key: key);
+  final double pdWidth;
+  final TextStyle textStyle;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: pdWidth.w),
       child: Row(
@@ -81,24 +111,6 @@ class _TabBarDateCompState extends State<TabBarDateComp> {
             ),
           ),
         ).toList(),
-      ),
-    );
-  }
-
-  // 下拉按钮
-  Widget loadBtnWidget(WidgetRef ref) {
-    return Container(
-      height: 20.w,
-      alignment: Alignment.center,
-      child: IconButton(
-        color: Theme.of(context).colorScheme.primaryContainer,
-        onPressed: () {
-          ref.read(stateHomeProvider.notifier).switchViewType();
-        },
-        icon: Icon(
-          Icons.home_max,
-          size: 13.sp,
-        ),
       ),
     );
   }
