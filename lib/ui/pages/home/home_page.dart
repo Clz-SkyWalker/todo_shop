@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'comp/tab_bar_comp/tab_bar_comp.dart';
+import 'comp/export_comp.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,6 +19,9 @@ class _HomePageState extends State<HomePage> {
           TabBarComp(
             height: 200,
             headHeight: 60,
+          ),
+          TotalHeadComp(
+            pdWidth: 10,
           ),
         ],
       ),

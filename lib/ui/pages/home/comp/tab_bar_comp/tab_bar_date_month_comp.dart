@@ -96,49 +96,27 @@ class _TabBarDateMonthAnimCompState extends State<TabBarDateMonthAnimComp> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        // _curMY = ref.watch(stateHomeProvider.select((value) => value.curYM));
-        if (checkUpdate(_curMY)) {
-
-        }
+        if (checkUpdate(_curMY)) {}
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: widget.dateModel.pdWidth.w),
           child: SizedBox(
-            height: 250.w,
-            width: double.infinity,
-            child: PageView.builder(
-              itemCount: dataMap.length,
-              scrollDirection: Axis.horizontal,
-              clipBehavior: Clip.hardEdge,
-              controller: _controller,
-              onPageChanged: (index) {
-                if (_curMY != dataSort[index]) {
-                  _curMY = dataSort[index];
-                  // _controller?.=1;
-                  ref
-                      .read(stateHomeProvider.notifier)
-                      .switchYM(dataSort[index]);
-                  initDataList();
-                }
-              },
-              itemBuilder: (BuildContext context, int index) {
-                return SizedBox(
-                  height: 250.w,
-                  width: AppConst.width.w,
-                  child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 7,
-                      ),
-                      itemCount: 35,
-                      clipBehavior: Clip.hardEdge,
-                      itemBuilder: (context, index) {
-                        return TabBarDateDayItemComp(
-                            dateItemModel: dataMap[_curMY]![index]);
-                      }),
-                );
-              },
-            ),
-          ),
+              height: 250.w,
+              width: double.infinity,
+              child: SizedBox(
+                height: 250.w,
+                width: AppConst.width.w,
+                child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 7,
+                    ),
+                    itemCount: 35,
+                    clipBehavior: Clip.hardEdge,
+                    itemBuilder: (context, index) {
+                      return TabBarDateDayItemComp(
+                          dateItemModel: dataMap[_curMY]![index]);
+                    }),
+              )),
         );
       },
     );

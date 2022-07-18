@@ -24,14 +24,13 @@ class _TabBarDateWeekCompState extends State<TabBarDateWeekComp> {
 
   @override
   Widget build(BuildContext context) {
+    widget.dateModel.curDate=UtilTime.formatDateTime(FormatDateTime.yyyyMmDd, DateTime.now());
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: widget.dateModel.pdWidth.w),
       child: Consumer(
         builder: (context, ref, child) {
-          final curDate =
-              UtilTime.formatDateTime(FormatDateTime.yyyyMmDd, DateTime.now());
           dataList.clear();
-          dataList.addAll(UtilTime.getWeekDate(curDate));
+          dataList.addAll(UtilTime.getWeekDate(widget.dateModel.curDate));
 
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

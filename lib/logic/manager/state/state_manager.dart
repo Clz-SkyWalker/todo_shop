@@ -20,5 +20,5 @@ final stateHomeProvider = StateNotifierProvider<StateHomeNotifier, StateHome>(
     (ref) => StateHomeNotifier(StateHome(
         selectDate:
             UtilTime.formatDateTime(FormatDateTime.yyyyMmDd, DateTime.now()),
-        viewType: HomeViewType.month,
+        viewType: HomeViewType.week,
         curYM: DateTime(DateTime.now().year, DateTime.now().month))));
