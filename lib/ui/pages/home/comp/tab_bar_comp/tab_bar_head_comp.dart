@@ -102,7 +102,7 @@ class _HeadDateWidget extends StatelessWidget {
       final curYM = ref.watch(stateHomeProvider.select((value) => value.curYM));
       return InkWell(
         onTap: () {
-
+          showPicker(context, ref);
         },
         child: Container(
             padding: EdgeInsets.symmetric(horizontal: 6.w),
@@ -127,5 +127,26 @@ class _HeadDateWidget extends StatelessWidget {
             )),
       );
     });
+  }
+
+  /// 时间选择器
+  void showPicker(BuildContext context, WidgetRef ref) async {
+    final selectDate = ref.read(stateHomeProvider.notifier).getSelectDate;
+    final selDate = await showDatePicker(
+        context: context,
+        initialDate: selectDate,
+        firstDate: DateTime(1998),
+        lastDate: DateTime(2077),
+        builder: (context, child) {
+          return Theme(
+              data: ThemeData.light().copyWith(
+                  colorScheme: Theme.of(context).colorScheme.copyWith(
+                      onPrimary:
+                          Theme.of(context).colorScheme.primaryContainer)),
+              child: child!);
+        });
+    if (selDate != null) {
+      ref.read(stateHomeProvider.notifier).switchDate(selDate);
+    }
   }
 }

@@ -19,6 +19,9 @@ class TabBarDateWeekComp extends StatefulWidget {
 }
 
 class _TabBarDateWeekCompState extends State<TabBarDateWeekComp> {
+  // 存储七天数据
+  late final List<DateTime> dataList = [];
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,11 +30,12 @@ class _TabBarDateWeekCompState extends State<TabBarDateWeekComp> {
         builder: (context, ref, child) {
           final curDate =
               UtilTime.formatDateTime(FormatDateTime.yyyyMmDd, DateTime.now());
-          widget.dateModel.dataList = UtilTime.getWeekDate(curDate);
+          dataList.clear();
+          dataList.addAll(UtilTime.getWeekDate(curDate));
 
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: widget.dateModel.dataList.map((e) {
+            children: dataList.map((e) {
               final model = TabDateItemModel(
                   unSelectTextStyle: widget.dateModel.unSelectTextStyle,
                   selectTextStyle: widget.dateModel.selectTextStyle,

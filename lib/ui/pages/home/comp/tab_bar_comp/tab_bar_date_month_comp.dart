@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../logic/const/app_const.dart';
 import '../../../../../logic/utils/export_utils.dart';
 import '../../../../../logic/manager/export_normal_manager.dart';
 
 import 'tab_bar_date_day_item_comp.dart';
 
 class TabDateModel {
-  late List<DateTime> dataList;
   late DateTime selectDate; // 选择的日期
   late DateTime curDate; // 当前日期
   late double pdWidth; // 内边距
-  late TextStyle unSelectTextStyle; // 选中的样式
-  late TextStyle selectTextStyle;
+  late TextStyle unSelectTextStyle; // 选中的文本样式
+  late TextStyle selectTextStyle; // 选中后样式
   late bool reload; // 是否重新加载
 
   TabDateModel(
-      {required this.dataList,
-      required this.selectDate,
+      {required this.selectDate,
       required this.curDate,
       required this.pdWidth,
       required this.unSelectTextStyle,
@@ -70,7 +69,7 @@ class TabBarDateMonthAnimComp extends StatefulWidget {
 class _TabBarDateMonthAnimCompState extends State<TabBarDateMonthAnimComp> {
   late final Map<DateTime, List<TabDateItemModel>> dataMap = {};
   late final List<DateTime> dataSort = [];
-  late final PageController _controller;
+  PageController? _controller;
   late DateTime _curMY = DateTime(2022);
 
   @override
@@ -88,12 +87,18 @@ class _TabBarDateMonthAnimCompState extends State<TabBarDateMonthAnimComp> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _controller?.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        _curMY=ref.watch(stateHomeProvider.select((value) => value.curYM));
-        if (checkUpdate(_curMY)){
-          initDataList();
+        // _curMY = ref.watch(stateHomeProvider.select((value) => value.curYM));
+        if (checkUpdate(_curMY)) {
+
         }
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: widget.dateModel.pdWidth.w),
@@ -106,24 +111,30 @@ class _TabBarDateMonthAnimCompState extends State<TabBarDateMonthAnimComp> {
               clipBehavior: Clip.hardEdge,
               controller: _controller,
               onPageChanged: (index) {
-                _curMY = dataSort[index];
-                ref.read(stateHomeProvider.notifier).switchYM(dataSort[index]);
-                // _controller.jumpToPage(page)
+                if (_curMY != dataSort[index]) {
+                  _curMY = dataSort[index];
+                  // _controller?.=1;
+                  ref
+                      .read(stateHomeProvider.notifier)
+                      .switchYM(dataSort[index]);
+                  initDataList();
+                }
               },
               itemBuilder: (BuildContext context, int index) {
                 return SizedBox(
                   height: 250.w,
-                  width: 360.w,
-                  child: GridView(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 7,
-                    ),
-                    clipBehavior: Clip.hardEdge,
-                    children: dataMap[_curMY]!
-                        .map((e) => TabBarDateDayItemComp(dateItemModel: e))
-                        .toList(),
-                  ),
+                  width: AppConst.width.w,
+                  child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 7,
+                      ),
+                      itemCount: 35,
+                      clipBehavior: Clip.hardEdge,
+                      itemBuilder: (context, index) {
+                        return TabBarDateDayItemComp(
+                            dateItemModel: dataMap[_curMY]![index]);
+                      }),
                 );
               },
             ),
@@ -138,7 +149,7 @@ class _TabBarDateMonthAnimCompState extends State<TabBarDateMonthAnimComp> {
     final curData = UtilTime.formatDateTime(FormatDateTime.yyyyMm, _curMY);
     final dataNow =
         UtilTime.formatDateTime(FormatDateTime.yyyyMmDd, DateTime.now());
-    final dateList = UtilTime.getNextAndPreDate(curData, 2, 2);
+    final dateList = UtilTime.getNextAndPreDate(curData, 4, 4);
     for (final date in dateList) {
       if (dataMap.containsKey(date)) {
         continue;
@@ -160,10 +171,10 @@ class _TabBarDateMonthAnimCompState extends State<TabBarDateMonthAnimComp> {
   }
 
   /// 检查是否更新
-  bool checkUpdate(DateTime curDate){
+  bool checkUpdate(DateTime curDate) {
     final dateList = UtilTime.getNextAndPreDate(curDate, 2, 2);
     for (final value in dateList) {
-      if (dataSort.contains(value)){
+      if (dataSort.contains(value)) {
         continue;
       }
       return true;

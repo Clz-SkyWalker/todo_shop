@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'logic/const/app_const.dart';
 import 'logic/manager/export_manager.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         final appState = ref.watch(stateAppBaseProvider.notifier);
         appState.init();
         return ScreenUtilInit(
-          designSize: const Size(360, 690),
+          designSize: const Size(AppConst.width, AppConst.height),
           minTextAdapt: true,
           splitScreenMode: true,
           builder: (ctx, child) => MaterialApp.router(

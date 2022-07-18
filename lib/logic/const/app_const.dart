@@ -1,4 +1,7 @@
 class AppConst {
+  static const double height =690;
+  static const double width=360;
+
   // route
   static const String routeHome = '/home';
 
